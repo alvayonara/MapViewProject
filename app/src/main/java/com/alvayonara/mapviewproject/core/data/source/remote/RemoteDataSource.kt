@@ -1,11 +1,8 @@
 package com.alvayonara.mapviewproject.core.data.source.remote
 
-import com.alvayonara.mapviewproject.core.base.BaseDataSource
 import com.alvayonara.mapviewproject.core.data.source.remote.network.ApiService
 import com.alvayonara.mapviewproject.core.data.source.remote.network.Result
-import com.alvayonara.mapviewproject.core.data.source.remote.response.AutocompleteResponse
-import com.alvayonara.mapviewproject.core.data.source.remote.response.DetailsResponse
-import com.alvayonara.mapviewproject.core.data.source.remote.response.GeocodeResponse
+import com.alvayonara.mapviewproject.core.data.source.remote.response.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -14,20 +11,42 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class RemoteDataSource @Inject constructor(private val apiService: ApiService): BaseDataSource() {
+class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
 
-    suspend fun getGeocode(latitude: String, longitude: String): Flow<Result<GeocodeResponse>> = flow {
+    suspend fun getGeocode(latitude: String, longitude: String): Flow<Result<List<ResultsItem?>>> =
+        flow {
+            emit(Result.loading(null))
+            try {
+                val response = apiService.getGeocode(latlng = "${latitude},${longitude}")
+                val dataArray = response.results
+                emit(Result.success(dataArray))
+            } catch (e: Exception) {
+                emit(Result.error(message = e.message.toString(), data = null))
+            }
+        }.flowOn(Dispatchers.IO)
+
+    suspend fun getAutocomplete(
+        address: String,
+        deviceId: String
+    ): Flow<Result<List<PredictionsItem?>>> = flow {
         emit(Result.loading(null))
-        emit(safeApiCall { apiService.getGeocode(latlng = "${latitude},${longitude}") })
+        try {
+            val response = apiService.getAutocomplete(input = address, sessionToken = deviceId)
+            val dataArray = response.predictions
+            emit(Result.success(dataArray))
+        } catch (e: Exception) {
+            emit(Result.error(message = e.message.toString(), data = null))
+        }
     }.flowOn(Dispatchers.IO)
 
-    suspend fun getAutocomplete(address: String, deviceId: String): Flow<Result<AutocompleteResponse>> = flow {
+    suspend fun getDetails(placeId: String): Flow<Result<ResultDetails?>> = flow {
         emit(Result.loading(null))
-        emit(safeApiCall { apiService.getAutocomplete(input = address, sessionToken = deviceId) })
-    }.flowOn(Dispatchers.IO)
-
-    suspend fun getDetails(placeId: String): Flow<Result<DetailsResponse>> = flow {
-        emit(Result.loading(null))
-        emit(safeApiCall { apiService.getDetails(placeId = placeId) })
+        try {
+            val response = apiService.getDetails(placeId = placeId)
+            val dataArray = response.result
+            emit(Result.success(dataArray))
+        } catch (e: Exception) {
+            emit(Result.error(message = e.message.toString(), data = null))
+        }
     }.flowOn(Dispatchers.IO)
 }

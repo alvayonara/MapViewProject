@@ -84,6 +84,7 @@ dependencies {
 
     // Google Maps
     implementation "com.google.android.gms:play-services-maps:$googleMapsVersion"
+    implementation "com.google.android.gms:play-services-location:$googleServiceLocationVersion"
 
     // Shimmer
     implementation "com.facebook.shimmer:shimmer:$shimmerVersion"
@@ -93,9 +94,4 @@ dependencies {
 
     // Material Dialog
     implementation "com.afollestad.material-dialogs:core:$materialDialogVersion"
-
-    // Koin
-    implementation "org.koin:koin-core:$koinVersion"
-    implementation "org.koin:koin-android:$koinVersion"
-    implementation "org.koin:koin-android-viewmodel:$koinVersion"
 }

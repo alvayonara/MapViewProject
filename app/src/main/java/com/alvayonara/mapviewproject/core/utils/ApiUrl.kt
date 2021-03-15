@@ -1,7 +1,5 @@
 package com.alvayonara.mapviewproject.core.utils
 
-import com.alvayonara.mapviewproject.R
-
 object ApiUrl {
 
     /**

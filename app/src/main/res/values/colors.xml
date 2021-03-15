@@ -72,6 +72,7 @@
     <color name="grey_900">#212121</color>
     <color name="grey_1000">#1a1a1a</color>
 
+    <color name="white_primary">#F8F9FD</color>
     <color name="green_primary">#6dbf68</color>
     <color name="green_primary_variant">#57a251</color>
 </resources>

@@ -1,4 +1,18 @@
 <resources>
     <string name="app_name">MapViewProject</string>
     <string name="title_activity_maps">Map</string>
+    <string name="lorem_ipsum">Lorem Ipsum</string>
+    <string name="address_title">Cari Alamat</string>
+    <string name="address_message">Ayo cari alamat! :)</string>
+    <string name="address_not_found_title">Alamat Tidak Ditemukan</string>
+    <string name="address_not_found_message">Tidak dapat menemukan alamat yang dicari :(</string>
+    <string name="error_title">Terjadi Masalah</string>
+    <string name="error_message">Mohon periksa koneksi internet\natau coba lagi nanti.</string>
+    <string name="retry">Coba lagi</string>
+    <string name="pilih_alamat">Pilih Alamat</string>
+
+    <string name="request_permission">Allow Request</string>
+    <string name="request_permission_1">Allow OutSched to access this devices Location?</string>
+    <string name="request_permission_2">Allow</string>
+    <string name="request_permission_3">Deny</string>
 </resources>
